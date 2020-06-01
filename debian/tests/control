@@ -1,0 +1,3 @@
+Test-Command: debian/tests/compile.py -s debian/tests/examine.c -t test
+Depends: @, build-essential, pkg-config, python3
+Features: test-name=debian-compile
