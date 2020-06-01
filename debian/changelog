@@ -1,0 +1,5 @@
+libdrpm (0.4.1-1) UNRELEASED; urgency=low
+
+  * Initial release. Closes: #961799.
+
+ -- Peter Pentchev <roam@debian.org>  Mon, 01 Jun 2020 08:52:09 +0300

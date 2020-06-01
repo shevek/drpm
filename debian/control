@@ -1,0 +1,42 @@
+Source: libdrpm
+Section: libs
+Priority: optional
+Maintainer: RPM packaging team <team+pkg-rpm@tracker.debian.org>
+Uploaders: Peter Pentchev <roam@debian.org>
+Build-Depends:
+ cmake,
+ debhelper-compat (= 13),
+ libbz2-dev,
+ libcmocka-dev,
+ liblzma-dev,
+ librpm-dev,
+ libssl-dev,
+ libzstd-dev,
+ pkg-config,
+ zlib1g-dev,
+Standards-Version: 4.5.0
+Vcs-Git: https://salsa.debian.org/pkg-rpm-team/libdrpm.git
+Vcs-Browser: https://salsa.debian.org/pkg-rpm-team/libdrpm
+Homepage: https://github.com/rpm-software-management/drpm
+Rules-Requires-Root: no
+
+Package: libdrpm0
+Architecture: any
+Multi-Arch: same
+Depends: ${misc:Depends}, ${shlibs:Depends}
+Description: library for handling deltarpm packages
+ The libdrpm package provides a library for making, reading and applying
+ deltarpms, compatible with the original deltarpm packages.
+ .
+ This package contains the shared library.
+
+Package: libdrpm-dev
+Section: libdevel
+Architecture: any
+Multi-Arch: same
+Depends: ${misc:Depends}, libdrpm0 (= ${binary:Version})
+Description: library for handling deltarpm packages - development files
+ The libdrpm package provides a library for making, reading and applying
+ deltarpms, compatible with the original deltarpm packages.
+ .
+ This package contains the header files needed for development.

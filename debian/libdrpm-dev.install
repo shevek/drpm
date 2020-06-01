@@ -1,0 +1,3 @@
+usr/include/drpm.h
+usr/lib/*/libdrpm.so
+usr/lib/*/pkgconfig/drpm.pc
