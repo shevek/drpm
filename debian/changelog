@@ -1,4 +1,4 @@
-libdrpm (0.4.1-1) UNRELEASED; urgency=low
+libdrpm (0.5.0-1) UNRELEASED; urgency=low
 
   * Initial release. Closes: #961799.
 
