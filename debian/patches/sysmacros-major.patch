@@ -1,0 +1,77 @@
+Description: Use <sys/sysmacros.h> instead of <linux/kdev_t.h>
+ Use a glibc header file to provide major(3), minor(3), and makedev(3).
+Forwarded: https://github.com/rpm-software-management/drpm/pull/8
+Author: Peter Pentchev <roam@ringlet.net>
+Last-Update: 2020-07-25
+
+--- a/src/drpm_block.c
++++ b/src/drpm_block.c
+@@ -22,6 +22,8 @@
+ #include "drpm.h"
+ #include "drpm_private.h"
+ 
++#include <sys/sysmacros.h>
++
+ #include <stdint.h>
+ #include <stdbool.h>
+ #include <unistd.h>
+@@ -31,7 +33,6 @@
+ #include <sys/stat.h>
+ #include <sys/wait.h>
+ #include <fcntl.h>
+-#include <linux/kdev_t.h>
+ 
+ #define MAX_OPEN_FILES 50
+ #define MAX_CORE_BLOCKS 5000
+@@ -546,8 +547,8 @@
+     }
+ 
+     if (S_ISBLK(file.mode) || S_ISCHR(file.mode)) {
+-        header.rdevmajor = MAJOR(file.rdev);
+-        header.rdevminor = MINOR(file.rdev);
++        header.rdevmajor = major(file.rdev);
++        header.rdevminor = minor(file.rdev);
+     }
+ 
+     header.nlink = 1;
+--- a/src/drpm_make.c
++++ b/src/drpm_make.c
+@@ -22,6 +22,8 @@
+ #include "drpm.h"
+ #include "drpm_private.h"
+ 
++#include <sys/sysmacros.h>
++
+ #include <stdio.h>
+ #include <stdint.h>
+ #include <stdbool.h>
+@@ -34,7 +36,6 @@
+ #include <openssl/sha.h>
+ #include <rpm/rpmfi.h>
+ #include <rpm/rpmfc.h>
+-#include <linux/kdev_t.h>
+ 
+ #define BUFFER_SIZE 4096
+ 
+@@ -414,8 +415,8 @@
+             } else if (S_ISLNK(file.mode)) {
+                 cpio_hdr.filesize = strlen(file.linkto);
+             } else if (S_ISBLK(file.mode) || S_ISCHR(file.mode)) {
+-                cpio_hdr.rdevmajor = MAJOR(file.rdev);
+-                cpio_hdr.rdevminor = MINOR(file.rdev);
++                cpio_hdr.rdevmajor = major(file.rdev);
++                cpio_hdr.rdevminor = minor(file.rdev);
+             }
+         }
+ 
+@@ -483,8 +484,8 @@
+             if (MD5_Update(&seq_md5, name, name_len) != 1 ||
+                 md5_update_be32(&seq_md5, cpio_hdr.mode) != 1 ||
+                 md5_update_be32(&seq_md5, cpio_hdr.filesize) != 1 ||
+-                md5_update_be32(&seq_md5, MKDEV(cpio_hdr.rdevmajor,
+-                                                cpio_hdr.rdevminor)) != 1) {
++                md5_update_be32(&seq_md5, makedev(cpio_hdr.rdevmajor,
++                                                  cpio_hdr.rdevminor)) != 1) {
+                 error = DRPM_ERR_OTHER;
+                 goto cleanup_fail;
+             }
