@@ -1,10 +1,10 @@
-libdrpm (0.5.0-2) UNRELEASED; urgency=medium
+libdrpm (0.5.0-2) unstable; urgency=medium
 
   * Add the sysmacros-major patch to use <sys/sysmacros.h> instead of
     a Linux-specific header file for obtaining the major and minor IDs of
     a device number. Should fix the FTBFS on the Hurd.
 
- -- Peter Pentchev <roam@debian.org>  Sat, 25 Jul 2020 13:05:51 +0300
+ -- Peter Pentchev <roam@debian.org>  Sun, 26 Jul 2020 00:18:15 +0300
 
 libdrpm (0.5.0-1) unstable; urgency=low
 
