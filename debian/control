@@ -5,7 +5,6 @@ Maintainer: RPM packaging team <team+pkg-rpm@tracker.debian.org>
 Uploaders: Peter Pentchev <roam@debian.org>
 Build-Depends:
  cmake,
- debhelper-compat (= 13),
  libbz2-dev,
  libcmocka-dev,
  liblzma-dev,
